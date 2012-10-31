@@ -12,8 +12,6 @@
 (define (good-enough? guess prev-guess)
   (< (abs (/ (- guess prev-guess) prev-guess)) 0.001))
 
-(define (square x) (* x x))
-
 (define (improve guess x)
   (average guess (/ x guess)))
 
