@@ -2,12 +2,10 @@
 
 (require rackunit)
 
-(define (square a)  (* a a))
-
-(define (sum-of-squares a b)
-  (+ (square a) (square b)))
-
 (define (sum-of-biggest-squares x y z)
+  (define (square a)  (* a a))
+  (define (sum-of-squares a b)
+    (+ (square a) (square b)))
   (cond ((and (>= x z) (>= y z)) (sum-of-squares x y))
         ((and (>= x y) (>= z y)) (sum-of-squares x z))
         (else (sum-of-squares y z))
