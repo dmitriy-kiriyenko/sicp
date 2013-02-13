@@ -22,4 +22,4 @@
 
 (check-equal? (fib 1) 1)
 (check-equal? (fib 6) 8)
-(check-equal? (fib 60) 8)
+(check-equal? (fib 60) 1548008755920)
