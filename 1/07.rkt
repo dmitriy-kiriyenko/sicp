@@ -14,8 +14,8 @@
       guess
       (sqrt-iter (improve)
                  guess)))
-  (if (= x 0)
-      0
+  (if (< x 1e-120)
+      x
       (sqrt-iter 1.0 0.5))
   )
 
