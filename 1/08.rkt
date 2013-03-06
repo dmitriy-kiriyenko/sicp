@@ -4,25 +4,23 @@
 
 (define (qbrt x)
   (define (eps) 0.001)
+  (define (small-eps) 1e-6)
   (define (square x) (* x x))
   (define (qbrt-iter guess prev-guess)
     (define (good-enough?)
-      (if (< guess (eps))
-          #t
-          (< (abs (/ (- guess prev-guess) prev-guess)) (eps))))
+      (< (abs (- guess prev-guess)) (abs (* guess (eps)))))
+    (define (small-enough?)
+      (< (abs guess) (small-eps)))
+    (define (average3 a b c) (/ (+ a b c) 3))
     (define (improve)
-      (/ (+ (/ x (square guess))
-          (* 2 guess))
-       3))
+      (average3 (/ x (square guess)) guess guess))
 
-    (if (good-enough?)
+    (if (or (good-enough?) (small-enough?))
         guess
         (qbrt-iter (improve)
                    guess)))
 
-  (if (< x 0)
-      (- (qbrt (- x)))
-      (qbrt-iter 1.0 0.5))
+  (qbrt-iter 1.0 x)
   )
 
 (define (test-eps) 0.001)
