@@ -7,15 +7,17 @@
     (/ (+ x y) 2))
   (define (sqrt-iter guess prev-guess)
     (define (good-enough?)
-      (< (abs (/ (- guess prev-guess) prev-guess)) 0.001))
+      (if (< guess 0.001)
+          #t
+          (< (abs (/ (- guess prev-guess) prev-guess)) 0.001)))
     (define (improve)
       (average guess (/ x guess)))
     (if (good-enough?)
       guess
       (sqrt-iter (improve)
                  guess)))
-  (if (< x 1e-120)
-      x
+  (if (< x 0)
+      #f
       (sqrt-iter 1.0 0.5))
   )
 
@@ -23,3 +25,4 @@
 (check < (abs (- (sqrt 0.00000001) 0.0001)) 0.001)
 (check < (abs (- (sqrt 0) 0)) 0.001)
 (check < (abs (- (sqrt 1000000000000000) 31622776)) 10)
+(check-equal? #f (sqrt -4))
